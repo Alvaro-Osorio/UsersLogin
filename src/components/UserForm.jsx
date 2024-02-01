@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 const initialUserForm = {
-  username: "pepe",
-  password: "12345",
-  email: "pepe@correo.com",
+  username: "",
+  password: "",
+  email: "",
 };
 
-export const UserForm = () => {
+export const UserForm = ({ handlerAddUser }) => {
   const [userForm, setUserForm] = useState(initialUserForm);
 
   const { username, email, password } = userForm;
@@ -22,7 +22,14 @@ export const UserForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!username || !password || !email) {
+      alert("Formulario incompleto");
+      return;
+    }
+    handlerAddUser(userForm);
+    setUserForm(initialUserForm);
   };
+
   return (
     <>
       <form onSubmit={onSubmit}>
