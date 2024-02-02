@@ -1,6 +1,6 @@
 import { UserRow } from "./UserRow";
 
-export const UsersList = ({ handlerDeleteUser, users = [] }) => {
+export const UsersList = ({ handlerUserSelected, handlerDeleteUser, users = [] }) => {
   return (
     <table className="table table-hover table-striped">
       <thead>
@@ -13,13 +13,15 @@ export const UsersList = ({ handlerDeleteUser, users = [] }) => {
         </tr>
       </thead>
       <tbody>
-        {users.map(({ id, username, email }) => (
+        {users.map(({ id, username, email ,password}) => (
           <UserRow
             key={id}
             id={id}
             username={username}
             email={email}
+            password={password}
             handlerDeleteUser={handlerDeleteUser}
+            handlerUserSelected={handlerUserSelected}
           />
         ))}
       </tbody>
