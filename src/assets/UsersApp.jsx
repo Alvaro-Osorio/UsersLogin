@@ -13,35 +13,38 @@ const initialUsers = [
 ];
 
 const initialUserForm = {
+  id: 0,
   username: "",
   password: "",
   email: "",
 };
 
 export const UsersApp = () => {
-
   const [users, dispatch] = useReducer(usersReducer, initialUsers);
 
-  const [userSelected,setUserSelected] = useState(initialUserForm);
-  
+  const [userSelected, setUserSelected] = useState(initialUserForm);
+
   const handlerAddUser = (user) => {
+    let type = (user.id === 0)?'AddUser':'UpdateUser';
+    console.log(user.id);
+    console.log(type);
     dispatch({
-      type : "AddUser",
-      payload : user,
+      type: type,
+      payload: user,
     });
   };
 
   const handlerDeleteUser = (id) => {
     dispatch({
-      type : "DeleteUser",
-      payload : id,
+      type: "DeleteUser",
+      payload: id,
     });
   };
 
   const handlerUserSelected = (user) => {
-    setUserSelected(user);
-  }
-  
+    setUserSelected({ ...user });
+  };
+
   return (
     <div className="container my-4">
       <h2>Usuarios</h2>
@@ -60,10 +63,10 @@ export const UsersApp = () => {
               ¡No hay usuarios registrados!
             </div>
           ) : (
-            <UsersList 
-              users={users} 
-              handlerDeleteUser={handlerDeleteUser} 
-              handlerUserSelected={handlerUserSelected}  
+            <UsersList
+              users={users}
+              handlerDeleteUser={handlerDeleteUser}
+              handlerUserSelected={handlerUserSelected}
             />
           )}
         </div>

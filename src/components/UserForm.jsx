@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 
-export const UserForm = ({userSelected, handlerAddUser , initialUserForm }) => {
-
+export const UserForm = ({ userSelected, handlerAddUser, initialUserForm }) => {
   const [userForm, setUserForm] = useState(initialUserForm);
 
-  const { username, email, password } = userForm;
+  const { id, username, email, password } = userForm;
 
   useEffect(() => {
     setUserForm({
-      ...userSelected
-    })
-  },[userSelected]);
+      ...userSelected,
+    });
+  }, [userSelected]);
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -23,7 +22,7 @@ export const UserForm = ({userSelected, handlerAddUser , initialUserForm }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (!username || !password || !email) {
+    if (!username || (!password && id===0) || !email) {
       alert("Formulario incompleto");
       return;
     }
@@ -48,6 +47,7 @@ export const UserForm = ({userSelected, handlerAddUser , initialUserForm }) => {
           value={email}
           onChange={onInputChange}
         />
+        {id > 0 ? '':
         <input
           className="form-control my-3 w-75"
           placeholder="Password"
@@ -56,10 +56,23 @@ export const UserForm = ({userSelected, handlerAddUser , initialUserForm }) => {
           value={password}
           onChange={onInputChange}
         />
-        <button className="btn btn-primary" type="submit">
+        }
+        <input  
+          type="hidden" 
+          name="id" 
+          value={id} 
+        />
+       {id > 0 ? 
+        (<button className="btn btn-secondary" type="submit">
+          Editar
+        </button>)
+        :
+        (<button className="btn btn-primary" type="submit">
           Crear
-        </button>
+        </button>)
+        }
       </form>
     </>
   );
-};
+};  
+  
