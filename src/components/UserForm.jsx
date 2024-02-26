@@ -71,6 +71,9 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm }) => {
           Crear
         </button>)
         }
+
+        <button className="btn btn-primary mx-2" type="button">Cerrar</button>
+
       </form>
     </>
   );
